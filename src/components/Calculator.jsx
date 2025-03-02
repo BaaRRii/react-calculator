@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Resultado from "./Resultado";
 import "./Calculator.css"
 
 function Calculator(){
@@ -55,7 +56,9 @@ function Calculator(){
       </div>
       <div className="resultado">
         <p className="titulo">Resultado</p>
-        <p className="numero">{result}</p>
+        <div className="numero">
+          <Resultado resultado={result}></Resultado>
+        </div>
       </div>
     </div>
   )
