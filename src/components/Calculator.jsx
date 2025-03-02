@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "./Calculator.css"
 
 function Calculator(){
   const [valueA, setValueA] = useState(0)
@@ -21,8 +21,8 @@ function Calculator(){
         <button>/</button>
       </div>
       <div className="resultado">
-        <p>Resultado</p>
-        <p>{result}</p>
+        <p className="titulo">Resultado</p>
+        <p className="numero">{result}</p>
       </div>
     </div>
   )
