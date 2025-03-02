@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Calculator.css"
 
 function Calculator(){
@@ -7,18 +7,51 @@ function Calculator(){
   const [operation, setOperation] = useState("add")
   const [result, setResult] = useState(0)
 
+  useEffect(() => {
+    calculateResult(valueA, valueB, operation)
+  }, [valueA, valueB, operation])
+
+  const handleOperation = (op) =>{
+    setOperation(op)
+    calculateResult(valueA, valueB, op)
+  }
+
+  const calculateResult = (a, b, op) =>{
+    switch(op){
+      case "add":
+        setResult(a+b)
+        break
+      case "subtract":
+        setResult(a-b)
+        break
+      case "multiply":
+        setResult(a*b)
+        break
+      case "divide":
+        if(b !== 0){
+          setResult(a/b)
+        }
+        else{
+          setResult("NaN")
+        }
+        break
+      default:
+        setResult(0)
+    }
+  }
+    
   return (
     <div className="calculadora">
       <h2>Calculadora</h2>
       <div className="valores">
-        <input type="number" />
-        <input type="number" />
+        <input type="number" value={valueA} onChange={(e) => setValueA(Number(e.target.value))}/>
+        <input type="number" value={valueB} onChange={(e) => setValueB(Number(e.target.value))}/>
       </div>
       <div className="operaciones">
-        <button>+</button>
-        <button>-</button>
-        <button>x</button>
-        <button>/</button>
+        <button onClick={() => handleOperation("add")} style={{ outline: operation === "add" ? "1px solid" : "none" }}>+</button>
+        <button onClick={() => handleOperation("subtract")} style={{ outline: operation === "subtract" ? "1px solid" : "none" }}>-</button>
+        <button onClick={() => handleOperation("multiply")} style={{ outline: operation === "multiply" ? "1px solid" : "none" }}>x</button>
+        <button onClick={() => handleOperation("divide")} style={{ outline: operation === "divide" ? "1px solid" : "none" }}>/</button>
       </div>
       <div className="resultado">
         <p className="titulo">Resultado</p>
